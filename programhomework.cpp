@@ -4,7 +4,8 @@
 
 using namespace std;
 
-void quicksort(vector<int>& arr,int left,int right) {
+template<class T>
+void quicksort(T& arr,int left,int right) {
     if(left < right) {
         int i = left , j = right + 1 , p = arr[left];
         do {
