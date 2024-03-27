@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h1>景點觀光展覽資訊</h1>
+    <table id="csie" class="table table-striped table-hover">
+        <tr>
+            <th>名稱</th>
+            <th>地點</th>
+            <th>票價</th>
+        </tr>
+    </table>
+    <button onclick="addNewData()">addnewdata</button>
+    <script>
+        var openUrl =
+            "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6";
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', openUrl, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                dateset = JSON.parse(this.responseText);
+                addNewData(dateset);
+            }
+        }
+
+        function addNewData(dateset) {
+            var myTable = document.getElementById("csie");
+            dateset.forEach(function(data, index) {
+                var row = myTable.insertRow(-1);
+                row.insertCell(0).innerHTML = data['title'];
+                row.insertCell(1).innerHTML = data['showInfo'][0]['location'];
+                row.insertCell(2).innerHTML = data['showInfo'][0]['price'];
+            });
+        }
+    </script>
+</body>
+
+</html>
