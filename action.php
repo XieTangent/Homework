@@ -57,6 +57,7 @@ switch ($action) {
         $sql = "INSERT INTO city VALUES ('$val','$val2')";
         mysqli_query($link,$sql);
         break;
+
     case 'insertsite':
         $sql = "INSERT INTO site VALUES ('$val','$val2','$val3')";
         mysqli_query($link,$sql);
@@ -82,12 +83,30 @@ switch ($action) {
         $sql = "UPDATE road SET site_id = '$val3',road = '$val4' WHERE site_id = '$val' AND road = '$val2'";
         mysqli_query($link,$sql);
         break;
-}
 
+    case 'deletecity':
+        $sql = "DELETE FROM city WHERE city_id = '$val'";
+        mysqli_query($link,$sql);
+        break;
+
+    case 'deletesite':
+        $sql = "DELETE FROM site WHERE site_id = '$val'";
+        mysqli_query($link,$sql);
+        break;
+
+    case 'deleteroad':
+        $list = array();
+        $sql = "DELETE FROM road WHERE site_id = '$val' AND road = '$val2'";
+        mysqli_query($link,$sql);
+        break;
+
+}
 echo json_encode($list);
 return;
 
+
 mysqli_free_result($result);
+
 
 mysqli_close($link);
 ?>
